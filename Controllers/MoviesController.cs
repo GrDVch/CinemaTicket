@@ -1,4 +1,5 @@
-﻿using CinemaTicket.Entities;
+﻿using CinemaTicket.DB;
+using CinemaTicket.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTicket.Controllers
@@ -7,26 +8,21 @@ namespace CinemaTicket.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private static List<Movie> _movies = new List<Movie>
-        {
-            new Movie { Id = 1, Title = "Movie 1", Description = "Description 1", Duration = TimeSpan.FromMinutes(120), Genre = "Action" },
-            new Movie { Id = 2, Title = "Movie 2", Description = "Description 2", Duration = TimeSpan.FromMinutes(110), Genre = "Drama" },
-            new Movie { Id = 3, Title = "Movie 3", Description = "Description 3", Duration = TimeSpan.FromMinutes(105), Genre = "Comedy" }
-        };
+
 
         // GET: api/movies
         [HttpGet]
         public ActionResult<IEnumerable<Movie>> GetMovies()
         {
-            return _movies;
+            return CinemaTicketDB.Movies;
         }
 
         // POST: api/movies
         [HttpPost]
         public ActionResult<Movie> AddMovie(Movie movie)
         {
-            movie.Id = _movies.Count + 1;
-            _movies.Add(movie);
+            movie.Id = CinemaTicketDB.Movies.Count + 1;
+            CinemaTicketDB.Movies.Add(movie);
             return CreatedAtAction(nameof(GetMovies), new { id = movie.Id }, movie);
         }
 
@@ -34,7 +30,7 @@ namespace CinemaTicket.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateMovie(int id, Movie movie)
         {
-            var existingMovie = _movies.FirstOrDefault(m => m.Id == id);
+            var existingMovie = CinemaTicketDB.Movies.FirstOrDefault(m => m.Id == id);
             if (existingMovie == null)
             {
                 return NotFound();
@@ -52,13 +48,13 @@ namespace CinemaTicket.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteMovie(int id)
         {
-            var movieToDelete = _movies.FirstOrDefault(m => m.Id == id);
+            var movieToDelete = CinemaTicketDB.Movies.FirstOrDefault(m => m.Id == id);
             if (movieToDelete == null)
             {
                 return NotFound();
             }
 
-            _movies.Remove(movieToDelete);
+            CinemaTicketDB.Movies.Remove(movieToDelete);
             return NoContent();
         }
     }
