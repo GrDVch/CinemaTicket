@@ -38,7 +38,6 @@ namespace CinemaTicket.Controllers
 
             existingMovie.Title = movie.Title;
             existingMovie.Description = movie.Description;
-            existingMovie.Duration = movie.Duration;
             existingMovie.Genre = movie.Genre;
 
             return NoContent();
