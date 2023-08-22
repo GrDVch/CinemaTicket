@@ -21,38 +21,38 @@ namespace CinemaTicket.DB
         {
             new Showtime { Id = 1, DateTime= DateTime.Now, TheaterId = 1, MovieId= 1, Seats = new List<Seat>
         {
-            new Seat { Id = 1, Row = 1, SeatNumber = 1   },
-            new Seat { Id = 2, Row = 1, SeatNumber = 2   },
-            new Seat { Id = 3, Row = 2, SeatNumber = 1   },
-            new Seat { Id = 4, Row = 2, SeatNumber = 2   },
+            new Seat { Id = 1, Row = 1, SeatNumber = 1, Price = 12.3m   },
+            new Seat { Id = 2, Row = 1, SeatNumber = 2, Price = 12.3m   },
+            new Seat { Id = 3, Row = 2, SeatNumber = 1, Price = 12.3m   },
+            new Seat { Id = 4, Row = 2, SeatNumber = 2, Price = 12.3m   },
         }   },
             new Showtime { Id = 2, DateTime= DateTime.Now, TheaterId = 1, MovieId= 2, Seats = new List<Seat>
         {
-            new Seat { Id = 1, Row = 1, SeatNumber = 1   },
-            new Seat { Id = 2, Row = 1, SeatNumber = 2   },
-            new Seat { Id = 3, Row = 2, SeatNumber = 1   },
-            new Seat { Id = 4, Row = 2, SeatNumber = 2   },
+            new Seat { Id = 5, Row = 1, SeatNumber = 1, Price = 14.4m   },
+            new Seat { Id = 6, Row = 1, SeatNumber = 2, Price = 14.4m   },
+            new Seat { Id = 7, Row = 2, SeatNumber = 1, Price = 14.4m   },
+            new Seat { Id = 8, Row = 2, SeatNumber = 2, Price = 14.4m   },
         }   },
         }},
             new Theater { Id = 2, Name = "Theater B", Location = "Location B", Showtimes = new List<Showtime>
         {
             new Showtime { Id = 3, DateTime= DateTime.Now, TheaterId = 2, MovieId= 1, Seats = new List<Seat>
         {
-            new Seat { Id = 5, Row = 1, SeatNumber = 1   },
-            new Seat { Id = 6, Row = 1, SeatNumber = 2   },
-            new Seat { Id = 6, Row = 2, SeatNumber = 1   },
-            new Seat { Id = 8, Row = 2, SeatNumber = 2   },
-            new Seat { Id = 9, Row = 3, SeatNumber = 1   },
-            new Seat { Id = 10, Row = 3, SeatNumber = 2   },
+            new Seat { Id = 9, Row = 1, SeatNumber = 1, Price = 15.5m   },
+            new Seat { Id = 10, Row = 1, SeatNumber = 2, Price = 15.5m   },
+            new Seat { Id = 11, Row = 2, SeatNumber = 1, Price = 15.5m   },
+            new Seat { Id = 12, Row = 2, SeatNumber = 2, Price = 15.5m   },
+            new Seat { Id = 13, Row = 3, SeatNumber = 1, Price = 15.5m   },
+            new Seat { Id = 14, Row = 3, SeatNumber = 2, Price = 15.5m   },
         }   },
             new Showtime { Id = 4, DateTime= DateTime.Now, TheaterId = 2, MovieId= 2, Seats = new List<Seat>
         {
-            new Seat { Id = 5, Row = 1, SeatNumber = 1   },
-            new Seat { Id = 6, Row = 1, SeatNumber = 2   },
-            new Seat { Id = 6, Row = 2, SeatNumber = 1   },
-            new Seat { Id = 8, Row = 2, SeatNumber = 2   },
-            new Seat { Id = 9, Row = 3, SeatNumber = 1   },
-            new Seat { Id = 10, Row = 3, SeatNumber = 2   },
+            new Seat { Id = 15, Row = 1, SeatNumber = 1, Price = 16.6m   },
+            new Seat { Id = 16, Row = 1, SeatNumber = 2, Price = 16.6m   },
+            new Seat { Id = 17, Row = 2, SeatNumber = 1, Price = 16.6m   },
+            new Seat { Id = 18, Row = 2, SeatNumber = 2, Price = 16.6m   },
+            new Seat { Id = 19, Row = 3, SeatNumber = 1, Price = 16.6m   },
+            new Seat { Id = 20, Row = 3, SeatNumber = 2, Price = 16.6m   },
         }   },
         } },
         };

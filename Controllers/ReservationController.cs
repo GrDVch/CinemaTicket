@@ -30,9 +30,14 @@ namespace CinemaTicket.Controllers
                 return NotFound("seat not found.");
             }
 
-            var isReserved = CinemaTicketDB.Reservations.Any(r => 
+            if (seat.IsPaid)
+            {
+                return NotFound("Seat Is Paid.");
+            }
+
+            var isReserved = CinemaTicketDB.Reservations.Any(r =>
             r.ShowtimeId == reservation.ShowtimeId
-            && r.TheaterId == reservation.TheaterId 
+            && r.TheaterId == reservation.TheaterId
             && r.SeatId == reservation.SeatId
             && r.ExpiryTime > DateTime.Now
             );
@@ -46,6 +51,34 @@ namespace CinemaTicket.Controllers
             CinemaTicketDB.Reservations.Add(reservation);
 
             return reservation;
+        }
+
+        [HttpPost("payment")]
+        public ActionResult<BookingDetails> Payment(int userId)
+        {
+            var seatIds = CinemaTicketDB.Reservations.Where(r => r.UserId == userId)?.Select(x => x.SeatId);
+            if (seatIds == null || !seatIds.Any())
+            {
+                return NotFound("No reservation.");
+            }
+
+            var seats = CinemaTicketDB.Theaters.SelectMany(x => x.Showtimes).SelectMany(x => x.Seats);
+            var bookingDetails = new BookingDetails();
+            foreach (var seat in seats)
+            {
+                if (seatIds.Contains(seat.Id))
+                {
+                    seat.IsPaid = true;
+                    bookingDetails.Details.Add(new BookingDetail() 
+                    {
+                    Price = seat.Price,
+                    Seat = seat,
+                    });
+                    bookingDetails.Price += bookingDetails.Price + seat.Price;
+                }
+            }
+
+            return bookingDetails;
         }
 
     }
