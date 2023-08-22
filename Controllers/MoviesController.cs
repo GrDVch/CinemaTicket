@@ -1,6 +1,7 @@
 ﻿using CinemaTicket.DB;
 using CinemaTicket.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace CinemaTicket.Controllers
 {
@@ -8,7 +9,11 @@ namespace CinemaTicket.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-
+        private readonly ApplicationDbContext _applicationDbContext;
+        public MoviesController(ApplicationDbContext applicationDbContext)
+        {
+            _applicationDbContext = applicationDbContext;
+        }
 
         // GET: api/movies
         [HttpGet]
@@ -23,6 +28,8 @@ namespace CinemaTicket.Controllers
         {
             movie.Id = CinemaTicketDB.Movies.Count + 1;
             CinemaTicketDB.Movies.Add(movie);
+            _applicationDbContext.Movies.Add(movie);
+            _applicationDbContext.SaveChanges();
             return CreatedAtAction(nameof(GetMovies), new { id = movie.Id }, movie);
         }
 
