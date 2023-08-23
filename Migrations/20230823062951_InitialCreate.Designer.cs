@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaTicket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230822195129_InitialCreate2")]
-    partial class InitialCreate2
+    [Migration("20230823062951_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

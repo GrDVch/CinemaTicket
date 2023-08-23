@@ -19,25 +19,24 @@ namespace CinemaTicket.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Movie>> GetMovies()
         {
-            return CinemaTicketDB.Movies;
+            return _applicationDbContext.Movies;
         }
 
         // POST: api/movies
         [HttpPost]
         public ActionResult<Movie> AddMovie(Movie movie)
         {
-            movie.Id = CinemaTicketDB.Movies.Count + 1;
-            CinemaTicketDB.Movies.Add(movie);
             _applicationDbContext.Movies.Add(movie);
             _applicationDbContext.SaveChanges();
+
             return CreatedAtAction(nameof(GetMovies), new { id = movie.Id }, movie);
         }
 
         // PUT: api/movies/{id}
         [HttpPut("{id}")]
-        public IActionResult UpdateMovie(int id, Movie movie)
+        public ActionResult<Movie> UpdateMovie(int id, Movie movie)
         {
-            var existingMovie = CinemaTicketDB.Movies.FirstOrDefault(m => m.Id == id);
+            var existingMovie = _applicationDbContext.Movies.FirstOrDefault(m => m.Id == id);
             if (existingMovie == null)
             {
                 return NotFound();
@@ -47,21 +46,25 @@ namespace CinemaTicket.Controllers
             existingMovie.Description = movie.Description;
             existingMovie.Genre = movie.Genre;
 
-            return NoContent();
+            _applicationDbContext.Movies.Update(existingMovie);
+            _applicationDbContext.SaveChanges();
+
+            return existingMovie;
         }
 
         // DELETE: api/movies/{id}
         [HttpDelete("{id}")]
-        public IActionResult DeleteMovie(int id)
+        public ActionResult<bool> DeleteMovie(int id)
         {
-            var movieToDelete = CinemaTicketDB.Movies.FirstOrDefault(m => m.Id == id);
+            var movieToDelete = _applicationDbContext.Movies.FirstOrDefault(m => m.Id == id);
             if (movieToDelete == null)
             {
-                return NotFound();
+                return false;
             }
 
-            CinemaTicketDB.Movies.Remove(movieToDelete);
-            return NoContent();
+            _applicationDbContext.Movies.Remove(movieToDelete);
+            _applicationDbContext.SaveChanges();
+            return true;
         }
     }
 }
